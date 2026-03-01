@@ -93,7 +93,7 @@ def run_app():
     )
     velocity = st.selectbox("Initial velocity", options=[15, 25, 40], index=1)
 
-    gravity_options = {"Earth": 9.81}
+    gravity_options = {"Earth": 9.81, "Moon": 1.62,"Crazy": 9.81}
     gravity_name = st.selectbox("Gravity", options=list(gravity_options.keys()), index=0)
     gravity = gravity_options[gravity_name]
     step = .1
@@ -103,7 +103,10 @@ def run_app():
 
     if simulate:
         angle_rad = radians(angle_deg)
-        ball = Cannonball(0)
+        if gravity_name == "Crazy":
+            ball = Crazyball(0)
+        else:
+            ball = Cannonball(0)
         xs, ys = ball.shoot(angle_rad, velocity, gravity, step)
 
         if not xs:
