@@ -14,7 +14,7 @@ class Cannonball:
     #
     def __init__(self, x):
         self._x = x
-        self._y = 0
+        self._y = 0.001
         self._vx = 0
         self._vy = 0
 
@@ -119,8 +119,8 @@ def run_app():
             alt.Chart(df)
             .mark_line()
             .encode(
-                x=alt.X("x:Q", scale=alt.Scale(domain=[0, 200]), title="Distance (m)"),
-                y=alt.Y("y:Q", scale=alt.Scale(domain=[0, 100]), title="Height (m)")
+                x=alt.X("x:Q", title="Distance (m)"), #need more space for moon
+                y=alt.Y("y:Q", title="Height (m)")
             )
             .properties(width=700, height=400)
         )
