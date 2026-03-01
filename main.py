@@ -18,6 +18,8 @@ class Cannonball:
         self._vx = 0
         self._vy = 0
 
+        self.printer = Print_Iface()
+
     ## Move the cannon ball, using its current velocities.
     #  @param sec the amount of time that has elapsed.
     #
@@ -49,7 +51,7 @@ class Cannonball:
     def shoot(self, angle, velocity, user_grav, step=0.1):
         self._vx = velocity * cos(angle)
         self._vy = velocity * sin(angle)
-        self.move(step, user_grav)
+    
 
         xs = []
         ys = []
@@ -57,7 +59,12 @@ class Cannonball:
         while self.getY() > 1e-14:
             xs.append(self.getX())
             ys.append(self.getY())
+
+            self.printer.main_print(self.getX(), self.getY())
+
             self.move(step, user_grav)
+
+            if self._y < 0: break
 
         return xs, ys
 
@@ -69,8 +76,13 @@ class Crazyball(Cannonball):
         self.rand_q = random.randrange(0, 10)
 
         if self.getX() < 400:
-            self._vx += self.rand_q - 5
-            self._vy += self.rand_q - 5
+            self._vx += random.uniform(-2, 2)
+            self._vy += random.uniform(-2, 2)
+
+class Print_Iface:
+
+    def main_print(self, x, y):
+        print(f"x = {x:.2f}, y = {y:.2f}")
 
 
 def run_app():
